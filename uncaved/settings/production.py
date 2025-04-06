@@ -3,7 +3,7 @@
 # import sentry_sdk
 # from sentry_sdk.integrations.django import DjangoIntegration
 
-import jjltech
+import uncaved
 from .base import *
 
 
