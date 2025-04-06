@@ -20,6 +20,8 @@ django-countries = "*"
 pillow = "*"
 psycopg2-binary = "*"
 dotenv = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 

@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Beta Test Signup - UNCAVED{% endblock %}
+
+{% block content %}
+<section class="min-vh-100 d-flex align-items-center justify-content-center" style="background-image: url('{% static 'img/curved-images/curved14.jpg' %}'); background-size: cover; background-position: center;">
+  <div class="container">
+    <div class="row justify-content-center" style="display: flex; margin-top: 10%; margin-bottom: 5%;">
+      <div class="col-lg-6 col-md-8">
+        <div class="card shadow-lg border-0">
+          <div class="card-header text-center bg-gradient-dark text-white">
+            <h3 class="text-info">Thank you for your interest to join Our Beta Program</h3>
+          </div>
+          <div class="card-body">
+            <div class="text-center mb-4">
+              <img src="{% static 'img/logo.png' %}" alt="UNCAVED Logo" class="img-fluid" style="width: 150px; height: auto;">
+            </div>
+            <p class="text-center">Your application has been received. We appreciate your interest in helping us shape the future of UNCAVED.</p>
+            <p class="text-center">We will be in touch soon to discuss the next steps.</p>
+            <p class="text-center">In the meantime, feel free to explore our website and learn more about our platform.</p>
+          </div>
+          <div class="card-footer text-center">
+            <p class="text-muted">We value your privacy. Your information will only be used for the beta program.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

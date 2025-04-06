@@ -24,5 +24,9 @@ def beta_signup_view(request):
             reason=reason
         )
         messages.success(request, 'Thank you for signing up! We will contact you soon.')
-        return redirect('web:beta_landing')
+        return redirect('web:beta_thanks')
     return render(request, 'web/beta.html')
+
+def beta_thanks_view(request):
+    """Thanks the user for signing up."""
+    return render(request, 'web/beta_thanks.html')

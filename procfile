@@ -1,2 +1,2 @@
-web: gunicorn jjltech.wsgi --preload --log-file -
+web: gunicorn uncaved.wsgi --preload --log-file -
 release: python manage.py collectstatic --noinput
