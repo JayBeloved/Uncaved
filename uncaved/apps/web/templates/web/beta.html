@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Beta Test Signup - UNCAVED{% endblock %}
+
+{% block content %}
+<section class="min-vh-100 d-flex align-items-center justify-content-center" style="background-image: url('{% static 'img/curved-images/curved14.jpg' %}'); background-size: cover; background-position: center;">
+  <div class="container">
+    <div class="row justify-content-center" style="display: flex; margin-top: 10%; margin-bottom: 5%;">
+      <div class="col-lg-6 col-md-8">
+        <div class="card shadow-lg border-0">
+          <div class="card-header text-center bg-gradient-dark text-white">
+            <h3 class="text-info">Join Our Beta Program</h3>
+            <p>Be the first to experience UNCAVED and help shape the future of our platform.</p>
+          </div>
+          <div class="card-body">
+            <form method="post" action="{% url 'web:beta_landing' %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" id="first_name" class="form-control" placeholder="Enter your first name" required>
+              </div>
+              <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter your last name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email address" required>
+              </div>
+              <div class="mb-3">
+                <label for="reason" class="form-label">Why do you want to join the beta program?</label>
+                <textarea name="reason" id="reason" class="form-control" rows="4" placeholder="Tell us why you're interested" required></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn bg-gradient-dark w-100">Sign Up</button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer text-center">
+            <p class="text-muted">We value your privacy. Your information will only be used for the beta program.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Sign Up - UNCAVED{% endblock %}
+
+{% block content %}
+<section class="min-vh-100 mb-8">
+  <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" 
+       style="background-image: url('{% static 'img/curved-images/curved14.jpg' %}');">
+    <span class="mask bg-gradient-dark opacity-6"></span>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 text-center mx-auto">
+          <h1 class="text-white mb-2 mt-5">Welcome!</h1>
+          <p class="text-lead text-white">Create your account to join the UNCAVED community and amplify your expertise.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row mt-lg-n10 mt-md-n11 mt-n10">
+      <div class="col-xl-8 col-lg-9 col-md-10 mx-auto">
+        <div class="card z-index-0">
+          <div class="card-header text-center pt-4">
+            <h5>Create Your Account</h5>
+          </div>
+            {% if messages %}
+              {% for message in messages %}
+              <li class="nav-item">
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+              </li>
+              {% endfor %}
+            {% endif %}
+          <div class="card-body">
+            <form method="post" role="form text-left">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6">
+                  <label>First Name</label>
+                  <div class="mb-3">
+                    {{ form.first_name| add_class:"form-control" }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Last Name</label>
+                  <div class="mb-3">
+                    {{ form.last_name| add_class:"form-control" }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Username</label>
+                  <div class="mb-3">
+                    {{ form.username| add_class:"form-control" }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Email</label>
+                  <div class="mb-3">
+                    {{ form.email| add_class:"form-control" }}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Password</label>
+                  <div class="mb-3">
+                    {{ form.password1| add_class:"form-control" }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label>Confirm Password</label>
+                  <div class="mb-3">
+                    {{ form.password2| add_class:"form-control" }}
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign Up</button>
+              </div>
+              <p class="text-center text-sm mt-3 mb-0">Already have an account? <a href="{% url 'accounts:signin' %}" class="text-dark font-weight-bolder">Sign in</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

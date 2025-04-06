@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+dj-database-url = "*"
+django = "*"
+python-decouple = "*"
+pytz = "*"
+black = "*"
+coverage = "*"
+factory-boy = "*"
+flake8 = "*"
+isort = "*"
+tox = "*"
+django-debug-toolbar = "*"
+ipython = "*"
+django-countries = "*"
+pillow = "*"
+psycopg2-binary = "*"
+dotenv = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"

@@ -1,0 +1,19 @@
+{% extends "layouts/base_dashboard.html" %}
+
+{% block title %}Communities - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2>Communities</h2>
+  <ul>
+    {% for community in communities %}
+      <li>
+        <a href="{% url 'core:community_detail' community.id %}">{{ community.name }}</a>
+        <p>{{ community.description }}</p>
+      </li>
+    {% empty %}
+      <p>No communities found.</p>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layouts/base_dashboard.html" %}
+
+{% block title %}Join Community - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2>Join {{ community.name }}</h2>
+  <p>{{ community.description }}</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Join Community</button>
+  </form>
+</div>
+{% endblock %}

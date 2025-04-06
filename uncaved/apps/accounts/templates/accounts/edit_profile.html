@@ -1,0 +1,76 @@
+{% extends 'layouts/base_dashboard.html' %}
+{% load static %}
+{% load custom_filters%}
+
+{% block title %}Edit Profile - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2>Edit Your Profile</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6">
+        <label for="country">Country</label>
+        <div class="mb-3">
+          {{ form.country|add_class:"form-control" }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="headline">Headline</label>
+        <div class="mb-3">
+          {{ form.headline|add_class:"form-control" }}
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="bio">Bio</label>
+      {{ form.bio|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+      <label for="profile_image">Profile Image</label>
+      {{ form.profile_image|add_class:"form-control" }}
+    </div>
+    <h4>Social Links</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="instagram">Instagram</label>
+        <div class="mb-3">
+          {{ form.instagram|add_class:"form-control" }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="linkedin">LinkedIn</label>
+        <div class="mb-3">
+          {{ form.linkedin|add_class:"form-control" }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="twitter">Twitter</label>
+        <div class="mb-3">
+          {{ form.twitter|add_class:"form-control" }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="facebook">Facebook</label>
+        <div class="mb-3">
+          {{ form.facebook|add_class:"form-control" }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="youtube">YouTube</label>
+        <div class="mb-3">
+          {{ form.youtube|add_class:"form-control" }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="website">Website</label>
+        <div class="mb-3">
+          {{ form.website|add_class:"form-control" }}
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </form>
+</div>
+{% endblock %}

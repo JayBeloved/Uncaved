@@ -1,0 +1,77 @@
+{% extends 'layouts/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}View Profile - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <!-- Profile Header -->
+  <div class="page-header min-height-250 border-radius-lg mt-4" style="background-image: url('{% static 'img/curved-images/curved14.jpg' %}'); background-size: cover; background-position: center;">
+    <span class="mask bg-gradient-primary opacity-2"></span>
+    <div class="d-flex justify-content-between align-items-center p-3">
+      <div class="d-flex align-items-center">
+        <div class="avatar avatar-xl position-relative me-3">
+          {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="w-100 border-radius-lg shadow-sm">
+          {% else %}
+            <img src="{% static 'img/default-profile.jpg' %}" alt="Default Profile Image" class="w-100 border-radius-lg shadow-sm">
+          {% endif %}
+        </div>
+        <div>
+          <h5 class="text-info mb-1">{{ profile.user.first_name }} {{ profile.user.last_name }}</h5>
+          <p class="text-white text-sm">{{ profile.headline }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Details -->
+  <div class="row mt-4">
+    <div class="col-lg-4">
+      <div class="card h-100">
+        <div class="card-header pb-0">
+          <h6>Profile Information</h6>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item border-0 ps-0 text-sm"><strong>Username:</strong> {{ profile.user.username }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong>Email:</strong> {{ profile.user.email }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong>Country:</strong> {{ profile.country }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card h-100">
+        <div class="card-header pb-0">
+          <h6>Social Links</h6>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            {% if profile.instagram %}<li class="list-group-item border-0 ps-0 text-sm"><strong>Instagram:</strong> <a href="{{ profile.instagram }}" target="_blank">{{ profile.instagram }}</a></li>{% endif %}
+            {% if profile.linkedin %}<li class="list-group-item border-0 ps-0 text-sm"><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}" target="_blank">{{ profile.linkedin }}</a></li>{% endif %}
+            {% if profile.twitter %}<li class="list-group-item border-0 ps-0 text-sm"><strong>Twitter:</strong> <a href="{{ profile.twitter }}" target="_blank">{{ profile.twitter }}</a></li>{% endif %}
+            {% if profile.facebook %}<li class="list-group-item border-0 ps-0 text-sm"><strong>Facebook:</strong> <a href="{{ profile.facebook }}" target="_blank">{{ profile.facebook }}</a></li>{% endif %}
+            {% if profile.youtube %}<li class="list-group-item border-0 ps-0 text-sm"><strong>YouTube:</strong> <a href="{{ profile.youtube }}" target="_blank">{{ profile.youtube }}</a></li>{% endif %}
+            {% if profile.website %}<li class="list-group-item border-0 ps-0 text-sm"><strong>Website:</strong> <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a></li>{% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Bio Details -->
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card h-100">
+        <div class="card-header pb-0">
+          <h6>Bio Details</h6>
+        </div>
+        <div class="card-body">
+          <p class="text-sm">{{ profile.bio }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

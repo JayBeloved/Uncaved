@@ -1,0 +1,14 @@
+{% extends "layouts/base_dashboard.html" %}
+
+{% block title %}Edit Showcase - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2>Edit Showcase</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-warning">Save Changes</button>
+  </form>
+</div>
+{% endblock %}

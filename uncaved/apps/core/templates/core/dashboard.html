@@ -1,0 +1,101 @@
+{% extends "layouts/base_dashboard.html" %}
+{% load static %}
+
+{% block title %}Dashboard - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <!-- Welcome Section -->
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="mb-0">Welcome, {{ user.first_name }}!</h4>
+          <p class="text-muted">Here's an overview of your activity on UNCAVED.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics Section -->
+  <div class="row">
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5>Total Users</h5>
+          <h3>{{ total_users }}</h3>
+          <p class="text-muted">Users on the platform</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5>Users in Your Country</h5>
+          <h3>{{ same_country_users }}</h3>
+          <p class="text-muted">Users from {{ profile.country.name }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5>Users in Your Industry</h5>
+          <h3>{{ same_industry_users }}</h3>
+          <p class="text-muted">Showcases in {{ showcase.industry|default:"your industry" }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5>Total Communities</h5>
+          <h3>{{ total_communities }}</h3>
+          <p class="text-muted">Communities on the platform</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User's Communities Section -->
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>Your Communities</h5>
+        </div>
+        <div class="card-body">
+          {% if user_communities > 0 %}
+            <p>You are a member of {{ user_communities }} community(ies).</p>
+            <a href="{% url 'core:community_list' %}" class="btn btn-primary">View Communities</a>
+          {% else %}
+            <p>You are not a member of any community yet.</p>
+            <a href="{% url 'core:community_list' %}" class="btn btn-primary">Join a Community</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User's Showcase Section -->
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <h5>Your Showcase</h5>
+        </div>
+        <div class="card-body">
+          {% if showcase %}
+            <h6>{{ showcase.title }}</h6>
+            <p>{{ showcase.description|truncatewords:30 }}</p>
+            <a href="{% url 'core:edit_showcase' showcase.id %}" class="btn btn-warning">Edit Showcase</a>
+          {% else %}
+            <p>You haven't created a showcase yet.</p>
+            <a href="{% url 'core:create_showcase' %}" class="btn btn-success">Create Showcase</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

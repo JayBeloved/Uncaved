@@ -1,0 +1,35 @@
+{% extends "layouts/base_dashboard.html" %}
+
+{% block title %}Showcase Details - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2>{{ showcase.title }}</h2>
+  <p><strong>Industry:</strong> {{ showcase.industry }}</p>
+  <p><strong>Description:</strong> {{ showcase.description }}</p>
+  <p><strong>Created by:</strong> {{ showcase.user.username }}</p>
+  <p><strong>Likes:</strong> {{ showcase.likes.count }}</p>
+  <p><strong>Clicks:</strong> {{ showcase.clicks }}</p>
+
+  <form method="post" action="{% url 'core:like_showcase' showcase.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">
+      {% if user in showcase.likes.all %}
+        Unlike
+      {% else %}
+        Like
+      {% endif %}
+    </button>
+  </form>
+
+  <hr>
+  <h4>Similar Showcases</h4>
+  <ul>
+    {% for similar in similar_showcases %}
+      <li><a href="{% url 'core:showcase_detail' similar.id %}">{{ similar.title }}</a></li>
+    {% empty %}
+      <p>No similar showcases found.</p>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
