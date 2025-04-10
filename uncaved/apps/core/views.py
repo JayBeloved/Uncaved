@@ -195,3 +195,31 @@ def join_community_view(request, community_id):
             community.save()
             return redirect('core:community_detail', community_id=community.id)
     return render(request, 'core/join_community.html', {'community': community})
+
+
+@login_required
+def create_community_view(request):
+    """View to create a new community."""
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        is_public = request.POST.get('is_public') == 'on'
+        community = Community.objects.create(
+            name=name,
+            description=description,
+            created_by=request.user,
+            is_public=is_public
+        )
+        community.members.add(request.user.profile)  # Add the creator to the community
+        return redirect('core:community_detail', community_id=community.id)
+    return render(request, 'core/create_community.html')
+
+@login_required
+def my_communities_view(request):
+    """View to display the communities the user has joined."""
+    profile = request.user.profile
+    communities = Community.objects.filter(members=profile)
+    context = {
+        'communities': communities,
+    }
+    return render(request, 'core/my_communities.html', context)
