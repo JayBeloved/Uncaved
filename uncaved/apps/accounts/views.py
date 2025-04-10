@@ -70,6 +70,9 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
+            # Preserve the current profile image if no new image is uploaded
+            if not request.FILES.get('profile_image'):
+                form.instance.profile_image = profile.profile_image
             form.save()
             messages.success(request, 'Your profile has been updated successfully.')
             return redirect('accounts:view_profile')

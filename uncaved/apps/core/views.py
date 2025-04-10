@@ -155,6 +155,19 @@ def like_showcase(request, showcase_id):
         liked = True
     return JsonResponse({'liked': liked, 'likes_count': showcase.likes.count()})
 
+@login_required
+def my_showcases_view(request):
+    """View to display the logged-in user's showcases."""
+    user = request.user
+    profile = user.profile  # Access the user's profile
+    showcases = Showcase.objects.filter(profile=profile)  # Get the user's showcases
+    context = {
+        'user': user,
+        'profile': profile,
+        'showcases': showcases,
+    }
+    return render(request, 'core/my_showcases.html', context)
+
 
 def community_list_view(request):
     """View to display all communities."""

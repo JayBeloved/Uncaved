@@ -46,16 +46,16 @@ class SignUpForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['country', 'headline', 'profile_image', 'bio',  'instagram', 'linkedin', 'website', 'twitter', 'facebook', 'youtube']
+        fields = ['country', 'headline', 'profile_image', 'bio', 'instagram', 'linkedin', 'twitter', 'facebook', 'youtube', 'website']
         widgets = {
             'country': CountrySelectWidget(attrs={'class': 'form-control form-select'}),
             'headline': forms.TextInput(attrs={'class': 'form-control'}),
             'profile_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
-            'instagram': forms.TextInput(attrs={'class': 'form-control'}),
-            'linkedin': forms.TextInput(attrs={'class': 'form-control'}),
-            'website': forms.TextInput(attrs={'class': 'form-control'}),
-            'twitter': forms.TextInput(attrs={'class': 'form-control'}),
-            'facebook': forms.TextInput(attrs={'class': 'form-control'}),
-            'youtube': forms.TextInput(attrs={'class': 'form-control'}),
+            'instagram': forms.URLInput(attrs={'class': 'form-control'}),
+            'linkedin': forms.URLInput(attrs={'class': 'form-control'}),
+            'twitter': forms.URLInput(attrs={'class': 'form-control'}),
+            'facebook': forms.URLInput(attrs={'class': 'form-control'}),
+            'youtube': forms.URLInput(attrs={'class': 'form-control'}),
+            'website': forms.URLInput(attrs={'class': 'form-control'}),
         }

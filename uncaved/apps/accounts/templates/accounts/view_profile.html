@@ -6,19 +6,20 @@
 {% block content %}
 <div class="container-fluid py-4">
   <!-- Profile Header -->
-  <div class="page-header min-height-250 border-radius-lg mt-4" style="background-image: url('{% static 'img/curved-images/curved14.jpg' %}'); background-size: cover; background-position: center;">
+  <div class="page-header min-height-250 border-radius-lg mt-4 position-relative" style="background-image: url('{% static 'web/img/hero-new.png' %}'); background-size: cover; background-position: center;">
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5);"></div>
     <span class="mask bg-gradient-primary opacity-2"></span>
     <div class="d-flex justify-content-between align-items-center p-3">
       <div class="d-flex align-items-center">
-        <div class="avatar avatar-xl position-relative me-3">
+        <div class="avatar avatar-xxl position-relative me-3">
           {% if profile.profile_image %}
             <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="w-100 border-radius-lg shadow-sm">
           {% else %}
             <img src="{% static 'img/default-profile.jpg' %}" alt="Default Profile Image" class="w-100 border-radius-lg shadow-sm">
           {% endif %}
         </div>
-        <div>
-          <h5 class="text-info mb-1">{{ profile.user.first_name }} {{ profile.user.last_name }}</h5>
+        <div style="position: relative; z-index: 1;">
+          <h5 class="text-white mb-1">{{ profile.user.first_name }} {{ profile.user.last_name }}</h5>
           <p class="text-white text-sm">{{ profile.headline }}</p>
         </div>
       </div>

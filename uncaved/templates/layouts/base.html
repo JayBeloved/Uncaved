@@ -21,8 +21,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png' %}">
-  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/logo_new.jpg' %}">
+  <link rel="icon" type="image/png" href="{% static 'img/logo_new.jpg' %}">
   <title>
     {% block title %}UNCAVED{% endblock %}
   </title>
@@ -55,12 +55,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav mx-auto ms-xl-auto me-xl-7">
+          {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="#">
               <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
               Dashboard
             </a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link me-2" href="#">
               <i class="fa fa-user opacity-6 text-dark me-1"></i>
@@ -68,13 +70,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-2" href="{% url 'accounts:signup' %}">
+            <a class="nav-link me-2" href="{% url 'web:beta_landing' %}">
               <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
               Sign Up
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-2" href="{% url 'accounts:signin' %}">
+            <a class="nav-link me-2" href="{% url 'web:beta_landing' %}">
               <i class="fas fa-key opacity-6 text-dark me-1"></i>
               Sign In
             </a>
