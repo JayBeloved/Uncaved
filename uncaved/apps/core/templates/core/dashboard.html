@@ -5,53 +5,109 @@
 
 {% block content %}
 <div class="container-fluid py-4">
-  <!-- Welcome Section -->
   <div class="row">
-    <div class="col-lg-12 mb-4">
-      <div class="card">
+    <!-- Welcome Section -->
+    <div class="col-lg-6 col-12 mb-4">
+      <div class="card h-100">
         <div class="card-body">
           <h4 class="mb-0">Welcome, {{ user.first_name }}!</h4>
           <p class="text-muted">Here's an overview of your activity on UNCAVED.</p>
+          <ul>
+            <li>You have joined {{ user_communities }} community(ies).</li>
+            <li>You have created {{ showcases.count }} showcase(s).</li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Statistics Section -->
-  <div class="row">
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card">
-        <div class="card-body text-center">
-          <h5>Total Users</h5>
-          <h3>{{ total_users }}</h3>
-          <p class="text-muted">Users on the platform</p>
+    <!-- Statistics Section -->
+    <div class="col-lg-6 col-12">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="card">
+            <span class="mask bg-primary opacity-10 border-radius-lg"></span>
+            <div class="card-body p-3 position-relative">
+              <div class="row">
+                <div class="col-8 text-start">
+                  <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
+                    <i class="ni ni-circle-08 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                  <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                    {{ total_users }}
+                  </h5>
+                  <span class="text-white text-sm">Total Users</span>
+                </div>
+                <div class="col-4">
+                  <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+55%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 mt-4 mt-md-0">
+          <div class="card">
+            <span class="mask bg-dark opacity-10 border-radius-lg"></span>
+            <div class="card-body p-3 position-relative">
+              <div class="row">
+                <div class="col-8 text-start">
+                  <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
+                    <i class="ni ni-active-40 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                  <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                    {{ same_country_users }}
+                  </h5>
+                  <span class="text-white text-sm">Users in Your Country</span>
+                </div>
+                <div class="col-4">
+                  <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+124%</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card">
-        <div class="card-body text-center">
-          <h5>Users in Your Country</h5>
-          <h3>{{ same_country_users }}</h3>
-          <p class="text-muted">Users from {{ profile.country.name }}</p>
+      <div class="row mt-4">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="card">
+            <span class="mask bg-dark opacity-10 border-radius-lg"></span>
+            <div class="card-body p-3 position-relative">
+              <div class="row">
+                <div class="col-8 text-start">
+                  <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
+                    <i class="ni ni-cart text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                  <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                    {{ same_industry_users }}
+                  </h5>
+                  <span class="text-white text-sm">Users in Your Industry</span>
+                </div>
+                <div class="col-4">
+                  <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+15%</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card">
-        <div class="card-body text-center">
-          <h5>Users in Your Industry</h5>
-          <h3>{{ same_industry_users }}</h3>
-          <p class="text-muted">Showcases in {{ showcase.industry|default:"your industry" }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-3 col-md-6 mb-4">
-      <div class="card">
-        <div class="card-body text-center">
-          <h5>Total Communities</h5>
-          <h3>{{ total_communities }}</h3>
-          <p class="text-muted">Communities on the platform</p>
+        <div class="col-lg-6 col-md-6 col-12 mt-4 mt-md-0">
+          <div class="card">
+            <span class="mask bg-dark opacity-10 border-radius-lg"></span>
+            <div class="card-body p-3 position-relative">
+              <div class="row">
+                <div class="col-8 text-start">
+                  <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
+                    <i class="ni ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                  <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                    {{ total_communities }}
+                  </h5>
+                  <span class="text-white text-sm">Total Communities</span>
+                </div>
+                <div class="col-4">
+                  <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+90%</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -59,7 +115,7 @@
 
   <!-- User's Communities Section -->
   <div class="row">
-    <div class="col-lg-12 mb-4">
+    <div class="col-lg-12 mb-4 mt-4">
       <div class="card">
         <div class="card-header">
           <h5>Your Communities</h5>
@@ -67,7 +123,7 @@
         <div class="card-body">
           {% if user_communities > 0 %}
             <p>You are a member of {{ user_communities }} community(ies).</p>
-            <a href="{% url 'core:community_list' %}" class="btn btn-primary">View Communities</a>
+            <a href="{% url 'core:my_communities' %}" class="btn btn-primary">View Communities</a>
           {% else %}
             <p>You are not a member of any community yet.</p>
             <a href="{% url 'core:community_list' %}" class="btn btn-primary">Join a Community</a>
@@ -77,22 +133,45 @@
     </div>
   </div>
 
-  <!-- User's Showcase Section -->
-  <div class="row">
-    <div class="col-lg-12 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <h5>Your Showcase</h5>
+  <!-- Showcase Table Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Your Showcases</h6>
         </div>
-        <div class="card-body">
-          {% if showcase %}
-            <h6>{{ showcase.title }}</h6>
-            <p>{{ showcase.description|truncatewords:30 }}</p>
-            <a href="{% url 'core:edit_showcase' showcase.id %}" class="btn btn-warning">Edit Showcase</a>
-          {% else %}
-            <p>You haven't created a showcase yet.</p>
-            <a href="{% url 'core:create_showcase' %}" class="btn btn-success">Create Showcase</a>
-          {% endif %}
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Title</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Industry</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for showcase in showcases %}
+                <tr>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{ showcase.title }}</p>
+                  </td>
+                  <td>
+                    <p class="text-xs text-secondary mb-0">{{ showcase.description|truncatewords:10 }}</p>
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{ showcase.industry }}</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <a href="{% url 'core:edit_showcase' showcase.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'core:showcase_detail' showcase.id %}" class="btn btn-sm btn-info">View</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

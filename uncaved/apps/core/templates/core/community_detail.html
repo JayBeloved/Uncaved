@@ -5,8 +5,37 @@
 {% block content %}
 <div class="container py-4">
   <h2>{{ community.name }}</h2>
-  <p>{{ community.description }}</p>
-  <p><strong>Members:</strong> {{ community.members.count }}</p>
+  <p><strong>Description:</strong> {{ community.description }}</p>
+  <p><strong>Created by:</strong> {{ community.created_by.username }}</p>
+
+  <hr>
+  <h4>Members</h4>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for member in community.members.all %}
+        <tr>
+          <td>{{ member.user.username }}</td>
+          <td>{{ member.user.email }}</td>
+          <td>
+            <a href="{% url 'core:public_profile' member.user.id %}" class="btn btn-sm btn-info">View Profile</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3">No members found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
   {% if request.user.profile in community.members.all %}
     <p>You are a member of this community.</p>

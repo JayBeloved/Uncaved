@@ -1,0 +1,104 @@
+{% extends 'layouts/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Public Profile - UNCAVED{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <!-- Profile Header -->
+  <div class="page-header min-height-250 border-radius-lg mt-4 position-relative" style="background-image: url('{% static 'web/img/hero-new.png' %}'); background-size: cover; background-position: center;">
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5);"></div>
+    <span class="mask bg-gradient-primary opacity-2"></span>
+    <div class="d-flex justify-content-between align-items-center p-3">
+      <div class="d-flex align-items-center">
+        <div class="avatar avatar-xxl position-relative me-3">
+          {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="w-100 border-radius-lg shadow-sm">
+          {% else %}
+            <img src="{% static 'img/default-profile.jpg' %}" alt="Default Profile Image" class="w-100 border-radius-lg shadow-sm">
+          {% endif %}
+        </div>
+        <div style="position: relative; z-index: 1;">
+          <h5 class="text-white mb-1">{{ profile.user.first_name }} {{ profile.user.last_name }}</h5>
+          <p class="text-white text-sm">{{ profile.headline }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Details -->
+  <div class="row mt-4">
+    <div class="col-lg-4">
+      <div class="card h-100">
+        <div class="card-header pb-0">
+          <h6>Profile Information</h6>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item border-0 ps-0 text-sm"><strong>Username:</strong> {{ profile.user.username }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong>Email:</strong> {{ profile.user.email }}</li>
+            <li class="list-group-item border-0 ps-0 text-sm"><strong>Country:</strong> {{ profile.country }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card h-100">
+        <div class="card-header pb-0">
+          <h6>Shared Communities</h6>
+        </div>
+        <div class="card-body">
+          {% if shared_communities.exists %}
+            <ul>
+              {% for community in shared_communities %}
+                <li>{{ community.name }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No shared communities found.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Showcases -->
+  <div class="row mt-4">
+    <div class="col-lg-12">
+      <div class="card h-100">
+        <div class="card-header pb-0">
+          <h6>Showcases</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for showcase in showcases %}
+                <tr>
+                  <td>{{ showcase.title }}</td>
+                  <td>{{ showcase.description|truncatewords:10 }}</td>
+                  <td>
+                    <a href="{% url 'core:showcase_detail' showcase.id %}" class="btn btn-sm btn-info">View Showcase</a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="3">No showcases found.</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

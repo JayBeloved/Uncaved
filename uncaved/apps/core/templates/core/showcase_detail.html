@@ -4,32 +4,45 @@
 
 {% block content %}
 <div class="container py-4">
-  <h2>{{ showcase.title }}</h2>
-  <p><strong>Industry:</strong> {{ showcase.industry }}</p>
-  <p><strong>Description:</strong> {{ showcase.description }}</p>
-  <p><strong>Created by:</strong> {{ showcase.user.username }}</p>
-  <p><strong>Likes:</strong> {{ showcase.likes.count }}</p>
-  <p><strong>Clicks:</strong> {{ showcase.clicks }}</p>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2>{{ showcase.title }}</h2>
+      <p><strong>Industry:</strong> {{ showcase.industry }}</p>
+      <p><strong>Description:</strong> {{ showcase.description }}</p>
+      <p><strong>Created by:</strong> <a href="{% url 'core:public_profile' showcase.profile.user.id %}">{{ showcase.profile.user.username }}</a></p>
+      <p><strong>Likes:</strong> {{ showcase.likes.count }}</p>
+      <p><strong>Clicks:</strong> {{ showcase.clicks }}</p>
 
-  <form method="post" action="{% url 'core:like_showcase' showcase.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">
-      {% if user in showcase.likes.all %}
-        Unlike
-      {% else %}
-        Like
-      {% endif %}
-    </button>
-  </form>
+      <form method="post" action="{% url 'core:like_showcase' showcase.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-thumbs-up"></i>
+          {% if user in showcase.likes.all %}
+            Unlike
+          {% else %}
+            Like
+          {% endif %}
+        </button>
+      </form>
+    </div>
+  </div>
 
   <hr>
   <h4>Similar Showcases</h4>
-  <ul>
+  <div class="row">
     {% for similar in similar_showcases %}
-      <li><a href="{% url 'core:showcase_detail' similar.id %}">{{ similar.title }}</a></li>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5>{{ similar.title }}</h5>
+            <p>{{ similar.description|truncatewords:20 }}</p>
+            <a href="{% url 'core:showcase_detail' similar.id %}" class="btn btn-primary">View Details</a>
+          </div>
+        </div>
+      </div>
     {% empty %}
       <p>No similar showcases found.</p>
     {% endfor %}
-  </ul>
+  </div>
 </div>
 {% endblock %}

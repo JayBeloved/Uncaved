@@ -4,16 +4,22 @@
 
 {% block content %}
 <div class="container py-4">
-  <h2>Communities</h2>
-  <ul>
+  <h2 class="mb-4">Communities</h2>
+  <div class="row">
     {% for community in communities %}
-      <li>
-        <a href="{% url 'core:community_detail' community.id %}">{{ community.name }}</a>
-        <p>{{ community.description }}</p>
-      </li>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ community.name }}</h5>
+            <p class="card-text">{{ community.description|truncatewords:20 }}</p>
+            <p class="text-muted">Created by: {{ community.created_by.username }}</p>
+            <a href="{% url 'core:community_detail' community.id %}" class="btn btn-primary">View Community</a>
+          </div>
+        </div>
+      </div>
     {% empty %}
       <p>No communities found.</p>
     {% endfor %}
-  </ul>
+  </div>
 </div>
 {% endblock %}

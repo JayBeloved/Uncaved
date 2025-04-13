@@ -8,6 +8,7 @@ from uncaved.apps.accounts.models import Profile
 from .forms import ShowcaseForm
 from django_countries import countries
 from django.contrib.auth.models import User
+from django.contrib import messages
 
 # Options for Industry Choices
 INDUSTRY_CHOICES = [
@@ -41,16 +42,27 @@ def dashboard_view(request):
     logged_profile = Profile.objects.filter(user=user).first()
     profile = user.profile  # Access the user's profile
     showcase = Showcase.objects.filter(profile=logged_profile).first()  # Get the user's first showcase, if any
+    # Get the list of the users showcases
+    showcases = Showcase.objects.filter(profile=profile).order_by("-created_at")  # Get the user's showcases
+    showcases_count = showcases.count()  # Count the number of showcases
+    # Same industry users
+    same_industry_users = Showcase.objects.filter(industry=showcase.industry).count() if showcase else 0
+
     total_users = User.objects.count()
     same_country_users = User.objects.filter(profile__country=profile.country).count()
-    same_industry_users = Showcase.objects.filter(industry=showcase.industry).count() if showcase else 0
+    
+
     total_communities = Community.objects.count()
     user_communities = Community.objects.filter(members=profile).count()
+    
+    
 
     context = {
         'user': user,
         'profile': profile,
+        'showcases': showcases,
         'showcase': showcase,
+        'showcases_count': showcases_count,
         'total_users': total_users,
         'same_country_users': same_country_users,
         'same_industry_users': same_industry_users,
@@ -121,7 +133,7 @@ def showcase_board_view(request):
     if industry:
         showcases = showcases.filter(industry=industry)
     if country:
-        showcases = showcases.filter(user__profile__country=country)
+        showcases = showcases.filter(profile__country=country)
     if keywords:
         showcases = showcases.filter(
             Q(title__icontains=keywords) | Q(description__icontains=keywords)
@@ -149,11 +161,9 @@ def like_showcase(request, showcase_id):
     showcase = get_object_or_404(Showcase, id=showcase_id)
     if request.user in showcase.likes.all():
         showcase.likes.remove(request.user)
-        liked = False
     else:
         showcase.likes.add(request.user)
-        liked = True
-    return JsonResponse({'liked': liked, 'likes_count': showcase.likes.count()})
+    return redirect('core:showcase_detail', showcase_id=showcase.id)
 
 @login_required
 def my_showcases_view(request):
@@ -189,11 +199,15 @@ def join_community_view(request, community_id):
     """View to join a community."""
     community = get_object_or_404(Community, id=community_id)
     profile = request.user.profile  # Access the user's profile
+
     if request.method == 'POST':
-        if profile not in community.members.all():
-            community.members.add(profile)
-            community.save()
+        pin = request.POST.get('pin')  # Get the pin from the form (if any)
+        if community.request_to_join(profile, pin):
+            messages.success(request, 'You have successfully joined the community!')
             return redirect('core:community_detail', community_id=community.id)
+        else:
+            messages.error(request, 'Failed to join the community. Please check the pin or contact the admin.')
+
     return render(request, 'core/join_community.html', {'community': community})
 
 
@@ -223,3 +237,17 @@ def my_communities_view(request):
         'communities': communities,
     }
     return render(request, 'core/my_communities.html', context)
+
+def public_profile_view(request, user_id):
+    """Displays the public profile of a user."""
+    profile = get_object_or_404(Profile, user__id=user_id)
+    showcases = Showcase.objects.filter(profile=profile)
+
+    # Determine relationship
+    shared_communities = Community.objects.filter(members=request.user.profile)
+    context = {
+        'profile': profile,
+        'showcases': showcases,
+        'shared_communities': shared_communities,
+    }
+    return render(request, 'core/public_profile.html', context)

@@ -14,6 +14,8 @@ urlpatterns = [
     path('showcase/board/', views.showcase_board_view, name='showcase_board'),
     path('showcase/<int:showcase_id>/like/', views.like_showcase, name='like_showcase'),
     path('showcase/my/', views.my_showcases_view, name='my_showcase'),
+    # Public profile url
+    path('public/profile/<int:user_id>/', views.public_profile_view, name='public_profile'),
 
     # Community URLs
     path('community/create/', views.create_community_view, name='create_community'),

@@ -52,6 +52,18 @@ class Community(models.Model):
     members = models.ManyToManyField(Profile, related_name="joined_communities", blank=True)  # Link to Profile
     is_public = models.BooleanField(default=True)  # Public or private community
     created_at = models.DateTimeField(auto_now_add=True)
+    is_open = models.BooleanField(default=True)  # Indicates if the community is open to all
+    pin = models.CharField(max_length=10, blank=True, null=True)  # Optional pin for restricted communities
+
+    def request_to_join(self, profile, pin=None):
+        """Handles join requests for restricted communities."""
+        if self.is_open:
+            self.members.add(profile)
+            return True
+        elif self.pin and self.pin == pin:
+            self.members.add(profile)
+            return True
+        return False
 
     def __str__(self):
         return self.name
