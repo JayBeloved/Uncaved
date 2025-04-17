@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
-from .forms import LoginForm, SignUpForm, ProfileForm
+from .forms import LoginForm, SignUpForm, ProfileForm, ProfileImageForm
 from .models import Profile
 
 
@@ -79,3 +79,18 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'accounts/edit_profile.html', {'form': form})
+
+
+@login_required
+def update_profile_image(request):
+    """Allows the user to update their profile picture."""
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileImageForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile picture has been updated successfully.')
+            return redirect('accounts:view_profile')
+    else:
+        form = ProfileImageForm(instance=profile)
+    return render(request, 'accounts/update_profile_image.html', {'form': form})

@@ -12,7 +12,7 @@
           <div class="card-body">
             <h5 class="card-title">{{ community.name }}</h5>
             <p class="card-text">{{ community.description|truncatewords:20 }}</p>
-            <p class="text-muted">Created by: {{ community.created_by.username }}</p>
+            <p class="text-muted">Created by: <img src="{{ community.created_by.profile.profile_image.url if community.created_by.profile.profile_image else static('img/default-profile.jpg') }}" alt="Creator Image" class="rounded-circle me-2" style="width: 40px; height: 40px;"> {{ community.created_by.username }}</p>
             <a href="{% url 'core:community_detail' community.id %}" class="btn btn-primary">View Community</a>
           </div>
         </div>

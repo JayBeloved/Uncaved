@@ -50,7 +50,6 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'country': CountrySelectWidget(attrs={'class': 'form-control form-select'}),
             'headline': forms.TextInput(attrs={'class': 'form-control'}),
-            'profile_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
             'instagram': forms.URLInput(attrs={'class': 'form-control'}),
             'linkedin': forms.URLInput(attrs={'class': 'form-control'}),
@@ -58,4 +57,12 @@ class ProfileForm(forms.ModelForm):
             'facebook': forms.URLInput(attrs={'class': 'form-control'}),
             'youtube': forms.URLInput(attrs={'class': 'form-control'}),
             'website': forms.URLInput(attrs={'class': 'form-control'}),
+        }
+
+class ProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_image']
+        widgets = {
+            'profile_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
